@@ -1,11 +1,22 @@
 package org.teragon.filters;
 
-/**
- * Created by IntelliJ IDEA.
- * User: nik
- * Date: 2/18/11
- * Time: 3:37 PM
- * To change this template use File | Settings | File Templates.
- */
-public class SmsLengthInputFilter {
+import android.text.InputFilter;
+import android.text.Spanned;
+
+public class SmsLengthInputFilter implements InputFilter {
+  private Observer observer;
+
+  public interface Observer {
+    public void onSmsTextLengthChanged(int textLength);
+  }
+
+  public SmsLengthInputFilter(Observer observer) {
+    this.observer = observer;
+  }
+
+  public CharSequence filter(CharSequence source, int sourceStart, int sourceEnd,
+                             Spanned dest, int destStart, int destEnd) {
+    observer.onSmsTextLengthChanged(dest.length());
+    return source;
+  }
 }
