@@ -27,5 +27,5 @@
     android:layout_below="@id/AddNewMessageTextEditText"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:text="Add Message"/>
+    android:text="Save Message"/>
 </RelativeLayout>
