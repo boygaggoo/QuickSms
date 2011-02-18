@@ -1,11 +1,56 @@
 package org.teragon.views;
 
-/**
- * Created by IntelliJ IDEA.
- * User: nik
- * Date: 2/18/11
- * Time: 10:35 AM
- * To change this template use File | Settings | File Templates.
- */
-public class MessageListItem {
+import android.content.Context;
+import android.view.View;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import org.teragon.controllers.SmsController;
+import org.teragon.model.Message;
+
+public class MessageListItem extends TableRow implements View.OnClickListener {
+  private static final int PADDING = 6;
+  private static final float TEXT_SIZE_LARGE = 16.0f;
+  private static final float TEXT_SIZE_SMALL = 12.0f;
+
+  private Context context;
+  private Message message;
+  private SmsController.Observer observer;
+
+  public MessageListItem(Context context, Message message, SmsController.Observer observer) {
+    super(context);
+
+    this.context = context;
+    this.message = message;
+    this.observer = observer;
+
+    createView(context, message);
+    setOnClickListener(this);
+  }
+
+  public void createView(Context context, Message message) {
+    TableLayout tableLayout = new TableLayout(context);
+    tableLayout.setPadding(0, PADDING, 0, PADDING);
+
+    TableRow messageRow = new TableRow(context);
+    TextView messageText = new TextView(context);
+    messageText.setTextSize(TEXT_SIZE_LARGE);
+    messageText.setText(message.getText());
+    messageRow.addView(messageText);
+    tableLayout.addView(messageRow);
+
+    TableRow detailsRow = new TableRow(context);
+    TextView detailsText = new TextView(context);
+    detailsText.setTextSize(TEXT_SIZE_SMALL);
+    detailsText.setText(message.getName() + " (" + message.getNumber() + ")");
+    detailsRow.addView(detailsText);
+    tableLayout.addView(detailsRow);
+
+    addView(tableLayout);
+  }
+
+  public void onClick(View view) {
+    SmsController smsController = new SmsController();
+    smsController.SendMessage(this.context, this.message, this.observer);
+  }
 }
