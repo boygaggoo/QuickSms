@@ -1,7 +1,8 @@
-package org.teragon;
+package org.teragon.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import org.teragon.R;
 
 public class QuickSms extends Activity
 {
