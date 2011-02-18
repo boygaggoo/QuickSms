@@ -1,6 +1,7 @@
 package org.teragon.views;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -24,13 +25,15 @@ public class MessageListItem extends TableRow implements View.OnClickListener {
     this.message = message;
     this.observer = observer;
 
-    createView(context, message);
+    setBackgroundColor(Color.DKGRAY);
+
+    addMessageViews(context, message);
     setOnClickListener(this);
   }
 
-  public void createView(Context context, Message message) {
+  public void addMessageViews(Context context, Message message) {
     TableLayout tableLayout = new TableLayout(context);
-    tableLayout.setPadding(0, PADDING, 0, PADDING);
+    tableLayout.setPadding(PADDING, PADDING, PADDING, PADDING);
 
     TableRow messageRow = new TableRow(context);
     TextView messageText = new TextView(context);
