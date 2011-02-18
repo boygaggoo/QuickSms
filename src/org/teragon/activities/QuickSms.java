@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.view.View;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TableLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import org.teragon.controllers.MessagesController;
 import org.teragon.controllers.SmsController;
@@ -16,7 +18,9 @@ import org.teragon.model.Message;
 import org.teragon.quicksms.R;
 import org.teragon.views.MessageListItem;
 
-public class QuickSms extends Activity implements SmsController.Observer, View.OnClickListener, AddNewMessageDialog.Observer {
+import java.util.List;
+
+public class QuickSms extends Activity implements SmsController.Observer, AddNewMessageDialog.Observer {
   private static final int INTENT_REQUEST_PICK_CONTACT = 1;
 
   @Override
@@ -26,34 +30,51 @@ public class QuickSms extends Activity implements SmsController.Observer, View.O
     populateMessageList();
   }
 
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    MenuInflater menuInflater = getMenuInflater();
+    menuInflater.inflate(R.menu.main_menu, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    switch(item.getItemId()) {
+      case R.id.MenuAddItem:
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+        startActivityForResult(contactPickerIntent, INTENT_REQUEST_PICK_CONTACT);
+        return true;
+      default:
+        return super.onOptionsItemSelected(item);
+    }
+  }
+
   private void populateMessageList() {
     TableLayout messagesTable = (TableLayout)getWindow().findViewById(R.id.MessagesTable);
     messagesTable.removeAllViews();
 
     MessagesController messagesController = new MessagesController(this);
-    for(Message message : messagesController.getMessages()) {
-      messagesTable.addView(new MessageListItem(this, message, this));
+    List<Message> allMessages = messagesController.getMessages();
+    if(allMessages.size() > 0) {
+      for(Message message : allMessages) {
+        messagesTable.addView(new MessageListItem(this, message, this));
+      }
     }
-
-    Button addNewMessageButton = new Button(this);
-    addNewMessageButton.setText("Save");
-    addNewMessageButton.setOnClickListener(this);
-    messagesTable.addView(addNewMessageButton, new TableLayout.LayoutParams(
-      TableLayout.LayoutParams.FILL_PARENT,
-      TableLayout.LayoutParams.FILL_PARENT));
+    else {
+      TextView introText = new TextView(this);
+      introText.setTextSize(18);
+      introText.setText("Welcome to QuickSms! To create a template message, press the 'menu' button on your device.");
+      messagesTable.addView(introText);
+    }
   }
 
   public void messageSent() {
     Toast.makeText(this, "SMS Sent", Toast.LENGTH_SHORT).show();
+    finish();
   }
 
   public void messageFailure(String message) {
     Toast.makeText(this, "SMS not delivered!", Toast.LENGTH_SHORT).show();
-  }
-
-  public void onClick(View view) {
-    Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
-    startActivityForResult(contactPickerIntent, INTENT_REQUEST_PICK_CONTACT);
   }
 
   @Override
