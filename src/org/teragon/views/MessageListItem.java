@@ -53,7 +53,7 @@ public class MessageListItem extends TableRow implements View.OnClickListener {
   }
 
   public void onClick(View view) {
-    SmsController smsController = new SmsController();
-    smsController.SendMessage(this.context, this.message, this.observer);
+    SmsController smsController = new SmsController(context, observer);
+    smsController.SendMessage(message);
   }
 }
