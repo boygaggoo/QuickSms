@@ -3,4 +3,8 @@
   <item android:id="@+id/MenuAddItem"
     android:icon="@android:drawable/ic_menu_add"
     android:title="Add Message"/>
+  <item android:id="@+id/MenuEditItem"
+    android:icon="@android:drawable/ic_menu_edit"
+    android:title="Edit Messages"
+    android:visible="false"/>
 </menu>
