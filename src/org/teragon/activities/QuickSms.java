@@ -18,10 +18,12 @@ import org.teragon.model.Message;
 import org.teragon.quicksms.R;
 import org.teragon.views.MessageListItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class QuickSms extends Activity implements SmsController.Observer, AddNewMessageDialog.Observer {
   private static final int INTENT_REQUEST_PICK_CONTACT = 1;
+  private List<MessageListItem> messageListItems;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,8 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
         startActivityForResult(contactPickerIntent, INTENT_REQUEST_PICK_CONTACT);
         return true;
+      case R.id.MenuEditItem:
+        return true;
       default:
         return super.onOptionsItemSelected(item);
     }
@@ -53,11 +57,14 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
     TableLayout messagesTable = (TableLayout)getWindow().findViewById(R.id.MessagesTable);
     messagesTable.removeAllViews();
 
+    messageListItems = new ArrayList<MessageListItem>();
     MessagesController messagesController = new MessagesController(this);
     List<Message> allMessages = messagesController.getMessages();
     if(allMessages.size() > 0) {
       for(Message message : allMessages) {
-        messagesTable.addView(new MessageListItem(this, message, this));
+        MessageListItem messageListItem = new MessageListItem(this, message, this);
+        messagesTable.addView(messageListItem);
+        messageListItems.add(messageListItem);
       }
     }
     else {
