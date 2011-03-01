@@ -76,12 +76,12 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
   }
 
   public void messageSent() {
-    Toast.makeText(this, "SMS Sent", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "SMS Sent!", Toast.LENGTH_SHORT).show();
     finish();
   }
 
   public void messageFailure(String message) {
-    Toast.makeText(this, "SMS not delivered!", Toast.LENGTH_SHORT).show();
+    Toast.makeText(this, "SMS not delivered: " + message, Toast.LENGTH_LONG).show();
   }
 
   @Override
