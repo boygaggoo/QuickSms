@@ -7,23 +7,17 @@ import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TableLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.teragon.controllers.MessagesController;
+import org.teragon.adapters.MessageListAdapter;
 import org.teragon.controllers.SmsController;
 import org.teragon.dialogs.AddNewMessageDialog;
 import org.teragon.model.Contact;
-import org.teragon.model.Message;
 import org.teragon.quicksms.R;
-import org.teragon.views.MessageListItem;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class QuickSms extends Activity implements SmsController.Observer, AddNewMessageDialog.Observer {
   private static final int INTENT_REQUEST_PICK_CONTACT = 1;
-  private List<MessageListItem> messageListItems;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -54,24 +48,16 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
   }
 
   private void populateMessageList() {
-    TableLayout messagesTable = (TableLayout)getWindow().findViewById(R.id.MessagesTable);
-    messagesTable.removeAllViews();
-
-    messageListItems = new ArrayList<MessageListItem>();
-    MessagesController messagesController = new MessagesController(this);
-    List<Message> allMessages = messagesController.getMessages();
-    if(allMessages.size() > 0) {
-      for(Message message : allMessages) {
-        MessageListItem messageListItem = new MessageListItem(this, message, this);
-        messagesTable.addView(messageListItem);
-        messageListItems.add(messageListItem);
-      }
+    ListView messagesListView = (ListView)getWindow().findViewById(R.id.MessagesListView);
+    MessageListAdapter listAdapter = new MessageListAdapter(this, this);
+    if(listAdapter.getCount() > 0) {
+      messagesListView.setAdapter(listAdapter);
     }
     else {
       TextView introText = new TextView(this);
       introText.setTextSize(18);
       introText.setText("Welcome to QuickSms! To create a template message, press the 'menu' button on your device.");
-      messagesTable.addView(introText);
+      messagesListView.addView(introText);
     }
   }
 
