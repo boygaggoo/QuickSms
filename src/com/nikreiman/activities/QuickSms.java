@@ -7,8 +7,8 @@ import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.nikreiman.adapters.MessageListAdapter;
 import com.nikreiman.controllers.SmsController;
@@ -54,10 +54,10 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
       messagesListView.setAdapter(listAdapter);
     }
     else {
-      TextView introText = new TextView(this);
-      introText.setTextSize(18);
-      introText.setText("Welcome to QuickSms! To create a template message, press the 'menu' button on your device.");
-      messagesListView.addView(introText);
+      messagesListView.setVisibility(View.INVISIBLE);
+      // UGH, why in the hell doesn't this ID get fetched??!?
+      //TextView introText = (TextView)getWindow().findViewById(R.id.MessagesIntroText);
+      //introText.setVisibility(View.VISIBLE);
     }
   }
 
