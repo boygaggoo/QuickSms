@@ -1,4 +1,4 @@
-package org.teragon.activities;
+package com.nikreiman.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,11 +10,11 @@ import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.teragon.adapters.MessageListAdapter;
-import org.teragon.controllers.SmsController;
-import org.teragon.dialogs.AddNewMessageDialog;
-import org.teragon.model.Contact;
-import org.teragon.quicksms.R;
+import com.nikreiman.adapters.MessageListAdapter;
+import com.nikreiman.controllers.SmsController;
+import com.nikreiman.dialogs.AddNewMessageDialog;
+import com.nikreiman.model.Contact;
+import com.teragon.quicksms.R;
 
 public class QuickSms extends Activity implements SmsController.Observer, AddNewMessageDialog.Observer {
   private static final int INTENT_REQUEST_PICK_CONTACT = 1;

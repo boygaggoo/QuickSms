@@ -1,8 +1,8 @@
-package org.teragon.controllers;
+package com.nikreiman.controllers;
 
 import android.content.Context;
 import android.util.Log;
-import org.teragon.model.Message;
+import com.nikreiman.model.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

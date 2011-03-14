@@ -1,4 +1,4 @@
-package org.teragon.dialogs;
+package com.nikreiman.dialogs;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -9,11 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.teragon.controllers.MessagesController;
-import org.teragon.filters.SmsLengthInputFilter;
-import org.teragon.model.Contact;
-import org.teragon.model.Message;
-import org.teragon.quicksms.R;
+import com.nikreiman.model.Contact;
+import com.nikreiman.controllers.MessagesController;
+import com.nikreiman.model.Message;
+import com.nikreiman.filters.SmsLengthInputFilter;
+import com.teragon.quicksms.R;
 
 public class AddNewMessageDialog extends Dialog implements View.OnClickListener, SmsLengthInputFilter.Observer {
   private Context context;

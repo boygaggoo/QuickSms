@@ -1,4 +1,4 @@
-package org.teragon.model;
+package com.nikreiman.model;
 
 import java.io.Serializable;
 

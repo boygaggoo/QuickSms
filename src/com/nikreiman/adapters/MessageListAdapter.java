@@ -1,4 +1,4 @@
-package org.teragon.adapters;
+package com.nikreiman.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import org.teragon.controllers.MessagesController;
-import org.teragon.controllers.SmsController;
-import org.teragon.model.Message;
-import org.teragon.quicksms.R;
+import com.nikreiman.controllers.SmsController;
+import com.nikreiman.model.Message;
+import com.nikreiman.controllers.MessagesController;
+import com.teragon.quicksms.R;
 
 public class MessageListAdapter extends BaseAdapter {
   private MessagesController messagesController;
