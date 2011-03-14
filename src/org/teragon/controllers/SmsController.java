@@ -108,7 +108,6 @@ public class SmsController {
   private void messageFailed(String message) {
     cleanUp();
     observer.messageFailure(message);
-    observer.messageSent();
     Log.w("QuickSms", "Failed sending SMS: " + message);
   }
 
