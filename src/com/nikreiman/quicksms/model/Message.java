@@ -1,4 +1,4 @@
-package com.nikreiman.model;
+package com.nikreiman.quicksms.model;
 
 import java.io.Serializable;
 

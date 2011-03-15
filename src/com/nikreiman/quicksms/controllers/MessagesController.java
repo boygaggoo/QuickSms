@@ -1,8 +1,8 @@
-package com.nikreiman.controllers;
+package com.nikreiman.quicksms.controllers;
 
 import android.content.Context;
 import android.util.Log;
-import com.nikreiman.model.Message;
+import com.nikreiman.quicksms.model.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;

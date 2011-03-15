@@ -1,4 +1,4 @@
-package com.nikreiman.controllers;
+package com.nikreiman.quicksms.controllers;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.SmsManager;
 import android.util.Log;
-import com.nikreiman.model.Message;
+import com.nikreiman.quicksms.model.Message;
 
 import java.util.Timer;
 import java.util.TimerTask;

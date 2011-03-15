@@ -1,4 +1,4 @@
-package com.nikreiman.activities;
+package com.nikreiman.quicksms.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,11 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
-import com.nikreiman.adapters.MessageListAdapter;
-import com.nikreiman.controllers.SmsController;
-import com.nikreiman.dialogs.AddNewMessageDialog;
-import com.nikreiman.model.Contact;
-import com.teragon.quicksms.R;
+import com.nikreiman.quicksms.R;
+import com.nikreiman.quicksms.adapters.MessageListAdapter;
+import com.nikreiman.quicksms.controllers.SmsController;
+import com.nikreiman.quicksms.dialogs.AddNewMessageDialog;
+import com.nikreiman.quicksms.model.Contact;
 
 public class QuickSms extends Activity implements SmsController.Observer, AddNewMessageDialog.Observer {
   private static final int INTENT_REQUEST_PICK_CONTACT = 1;
