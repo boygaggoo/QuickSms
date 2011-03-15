@@ -9,6 +9,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.nikreiman.quicksms.R;
 import com.nikreiman.quicksms.adapters.MessageListAdapter;
@@ -49,15 +50,17 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
 
   private void populateMessageList() {
     ListView messagesListView = (ListView)getWindow().findViewById(R.id.MessagesListView);
+    TextView introText = (TextView)getWindow().findViewById(R.id.MessagesIntroText);
+    
     MessageListAdapter listAdapter = new MessageListAdapter(this, this);
     if(listAdapter.getCount() > 0) {
       messagesListView.setAdapter(listAdapter);
+      messagesListView.setVisibility(View.VISIBLE);
+      introText.setVisibility(View.INVISIBLE);
     }
     else {
       messagesListView.setVisibility(View.INVISIBLE);
-      // UGH, why in the hell doesn't this ID get fetched??!?
-      //TextView introText = (TextView)getWindow().findViewById(R.id.MessagesIntroText);
-      //introText.setVisibility(View.VISIBLE);
+      introText.setVisibility(View.VISIBLE);
     }
   }
 
