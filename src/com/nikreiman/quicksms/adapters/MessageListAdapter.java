@@ -60,4 +60,8 @@ public class MessageListAdapter extends BaseAdapter {
 
     return layout;
   }
+
+  public void readMessages() {
+    messagesController.readMessages();
+  }
 }

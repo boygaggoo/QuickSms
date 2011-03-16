@@ -25,7 +25,12 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
-    populateMessageList();
+
+    messageListAdapter = new MessageListAdapter(this, this);
+    ListView messagesListView = (ListView)getWindow().findViewById(R.id.MessagesListView);
+    messagesListView.setAdapter(messageListAdapter);
+
+    setMainWindowComponentVisibility();
   }
 
   @Override
@@ -56,13 +61,11 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
     }
   }
 
-  private void populateMessageList() {
+  private void setMainWindowComponentVisibility() {
     ListView messagesListView = (ListView)getWindow().findViewById(R.id.MessagesListView);
     TextView introText = (TextView)getWindow().findViewById(R.id.MessagesIntroText);
     
-    MessageListAdapter listAdapter = new MessageListAdapter(this, this);
-    if(listAdapter.getCount() > 0) {
-      messagesListView.setAdapter(listAdapter);
+    if(hasMessages()) {
       messagesListView.setVisibility(View.VISIBLE);
       introText.setVisibility(View.INVISIBLE);
     }
@@ -97,7 +100,10 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
   }
 
   public void messageAdded() {
-    populateMessageList();
+    messageListAdapter.readMessages();
+    messageListAdapter.notifyDataSetChanged();
+    setMainWindowComponentVisibility();
+  }
 
   private boolean hasMessages() {
     if(messageListAdapter == null) {
