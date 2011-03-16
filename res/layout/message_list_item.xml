@@ -19,13 +19,11 @@
     android:layout_below="@id/MessageListItemMessage"
     android:textSize="12sp"
     android:textColor="@android:color/darker_gray"/>
-  <!--
   <Button android:id="@+id/MessageListItemEditButton"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@android:drawable/ic_menu_edit"
     android:layout_alignParentRight="true"
     android:layout_alignParentBottom="true"
-    android:layout_toRightOf="@id/MessageListItemContact"/>
-  -->
+    android:visibility="invisible"/>
 </RelativeLayout>
