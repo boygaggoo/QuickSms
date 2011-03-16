@@ -19,6 +19,7 @@ import com.nikreiman.quicksms.model.Contact;
 
 public class QuickSms extends Activity implements SmsController.Observer, AddNewMessageDialog.Observer {
   private static final int INTENT_REQUEST_PICK_CONTACT = 1;
+  private MessageListAdapter messageListAdapter;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,13 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
     MenuInflater menuInflater = getMenuInflater();
     menuInflater.inflate(R.menu.main_menu, menu);
     return true;
+  }
+
+  @Override
+  public boolean onMenuOpened(int featureId, Menu menu) {
+    MenuItem editMenuItem = menu.findItem(R.id.MenuEditItem);
+    editMenuItem.setEnabled(hasMessages());
+    return super.onMenuOpened(featureId, menu);
   }
 
   @Override
@@ -90,5 +98,13 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
 
   public void messageAdded() {
     populateMessageList();
+
+  private boolean hasMessages() {
+    if(messageListAdapter == null) {
+      return false;
+    }
+    else {
+      return (messageListAdapter.getCount() > 0);
+    }
   }
 }

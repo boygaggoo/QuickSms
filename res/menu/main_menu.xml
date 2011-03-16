@@ -5,6 +5,5 @@
     android:title="Add Message"/>
   <item android:id="@+id/MenuEditItem"
     android:icon="@android:drawable/ic_menu_edit"
-    android:title="Edit Messages"
-    android:visible="false"/>
+    android:title="Edit Messages"/>
 </menu>
