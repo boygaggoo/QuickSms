@@ -1,8 +1,8 @@
-package org.teragon.controllers;
+package com.nikreiman.quicksms.controllers;
 
 import android.content.Context;
 import android.util.Log;
-import org.teragon.model.Message;
+import com.nikreiman.quicksms.model.Message;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,22 +13,26 @@ import java.util.List;
 
 public class MessagesController {
   private Context context;
+  private List<Message> messages;
 
   public MessagesController(Context context) {
     this.context = context;
+    readMessages();
   }
 
-  public List<Message> getMessages() {
-    List<Message> result = new ArrayList<Message>();
+  public void readMessages() {
+    messages = new ArrayList<Message>();
 
     for(String messageFile : context.fileList()) {
       Message message = readMessageFromFile(messageFile);
       if(message != null) {
-        result.add(message);
+        messages.add(message);
       }
     }
+  }
 
-    return result;
+  public List<Message> getMessages() {
+    return messages;
   }
 
   private Message readMessageFromFile(String messageFile) {

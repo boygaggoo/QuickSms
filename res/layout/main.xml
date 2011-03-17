@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/MainLayout"
   android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
-  <ScrollView android:id="@+id/MessagesScrollView"
+  android:layout_height="fill_parent"
+  android:padding="20sp">
+  <ListView android:id="@+id/MessagesListView"
     android:layout_height="fill_parent"
     android:layout_width="fill_parent"
-    android:padding="20dip">
-    <TableLayout android:id="@+id/MessagesTable"
-      android:layout_height="fill_parent"
-      android:layout_width="fill_parent"/>
-  </ScrollView>
+    android:divider="@android:color/transparent"
+    android:dividerHeight="10.0sp"
+    android:visibility="visible"/>
+  <TextView android:id="@+id/MessagesIntroText"
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    android:gravity="center"
+    android:text="Welcome to QuickSms! To create a template message, press the 'menu' button on your device."
+    android:textColor="@android:color/white"
+    android:textSize="18sp"
+    android:visibility="invisible"/>
 </RelativeLayout>
 
