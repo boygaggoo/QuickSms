@@ -25,7 +25,7 @@ public class SmsController {
 
   private static final String SMS_DELIVERED = "SmsDelivered";
   private static final String SMS_SENT = "SmsSent";
-  private static final long SMS_FAIL_TIMEOUT_IN_MS = 10 * 1000;
+  private static final long SMS_FAIL_TIMEOUT_IN_MS = 20 * 1000;
 
   private Observer observer;
   private ProgressDialog progressDialog;
