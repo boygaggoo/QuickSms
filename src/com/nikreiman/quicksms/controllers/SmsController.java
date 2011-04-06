@@ -1,4 +1,4 @@
-package org.teragon.controllers;
+package com.nikreiman.quicksms.controllers;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.SmsManager;
 import android.util.Log;
-import org.teragon.model.Message;
+import com.nikreiman.quicksms.model.Message;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -108,7 +108,6 @@ public class SmsController {
   private void messageFailed(String message) {
     cleanUp();
     observer.messageFailure(message);
-    observer.messageSent();
     Log.w("QuickSms", "Failed sending SMS: " + message);
   }
 

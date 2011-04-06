@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:id="@+id/MessageListItem"
+  android:layout_width="fill_parent"
+  android:layout_height="wrap_content"
+  android:background="@drawable/panel_white"
+  android:padding="10sp">
+  <TextView android:id="@+id/MessageListItemMessage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:textSize="16sp"
+    android:textColor="@android:color/black"/>
+  <TextView android:id="@+id/MessageListItemContact"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@id/MessageListItemMessage"
+    android:textSize="12sp"
+    android:textColor="@android:color/darker_gray"/>
+  <Button android:id="@+id/MessageListItemEditButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/ic_menu_edit"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentBottom="true"
+    android:visibility="invisible"/>
+</RelativeLayout>

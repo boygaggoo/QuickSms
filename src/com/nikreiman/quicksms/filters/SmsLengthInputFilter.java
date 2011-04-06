@@ -1,4 +1,4 @@
-package org.teragon.filters;
+package com.nikreiman.quicksms.filters;
 
 import android.text.InputFilter;
 import android.text.Spanned;

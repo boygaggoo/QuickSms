@@ -1,4 +1,4 @@
-package org.teragon.model;
+package com.nikreiman.quicksms.model;
 
 import android.content.ContentResolver;
 import android.database.Cursor;

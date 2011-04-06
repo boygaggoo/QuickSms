@@ -1,4 +1,4 @@
-package org.teragon.activities;
+package com.nikreiman.quicksms.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,28 +7,30 @@ import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.TableLayout;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import org.teragon.controllers.MessagesController;
-import org.teragon.controllers.SmsController;
-import org.teragon.dialogs.AddNewMessageDialog;
-import org.teragon.model.Contact;
-import org.teragon.model.Message;
-import org.teragon.quicksms.R;
-import org.teragon.views.MessageListItem;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.nikreiman.quicksms.R;
+import com.nikreiman.quicksms.adapters.MessageListAdapter;
+import com.nikreiman.quicksms.controllers.SmsController;
+import com.nikreiman.quicksms.dialogs.AddNewMessageDialog;
+import com.nikreiman.quicksms.model.Contact;
 
 public class QuickSms extends Activity implements SmsController.Observer, AddNewMessageDialog.Observer {
   private static final int INTENT_REQUEST_PICK_CONTACT = 1;
+  private MessageListAdapter messageListAdapter;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
-    populateMessageList();
+
+    messageListAdapter = new MessageListAdapter(this, this);
+    ListView messagesListView = (ListView)getWindow().findViewById(R.id.MessagesListView);
+    messagesListView.setAdapter(messageListAdapter);
+
+    setMainWindowComponentVisibility();
   }
 
   @Override
@@ -36,6 +38,13 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
     MenuInflater menuInflater = getMenuInflater();
     menuInflater.inflate(R.menu.main_menu, menu);
     return true;
+  }
+
+  @Override
+  public boolean onMenuOpened(int featureId, Menu menu) {
+    MenuItem editMenuItem = menu.findItem(R.id.MenuEditItem);
+    editMenuItem.setEnabled(hasMessages());
+    return super.onMenuOpened(featureId, menu);
   }
 
   @Override
@@ -52,25 +61,17 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
     }
   }
 
-  private void populateMessageList() {
-    TableLayout messagesTable = (TableLayout)getWindow().findViewById(R.id.MessagesTable);
-    messagesTable.removeAllViews();
-
-    List<MessageListItem> messageListItems = new ArrayList<MessageListItem>();
-    MessagesController messagesController = new MessagesController(this);
-    List<Message> allMessages = messagesController.getMessages();
-    if(allMessages.size() > 0) {
-      for(Message message : allMessages) {
-        MessageListItem messageListItem = new MessageListItem(this, message, this);
-        messagesTable.addView(messageListItem);
-        messageListItems.add(messageListItem);
-      }
+  private void setMainWindowComponentVisibility() {
+    ListView messagesListView = (ListView)getWindow().findViewById(R.id.MessagesListView);
+    TextView introText = (TextView)getWindow().findViewById(R.id.MessagesIntroText);
+    
+    if(hasMessages()) {
+      messagesListView.setVisibility(View.VISIBLE);
+      introText.setVisibility(View.INVISIBLE);
     }
     else {
-      TextView introText = new TextView(this);
-      introText.setTextSize(18);
-      introText.setText("Welcome to QuickSms! To create a template message, press the 'menu' button on your device.");
-      messagesTable.addView(introText);
+      messagesListView.setVisibility(View.INVISIBLE);
+      introText.setVisibility(View.VISIBLE);
     }
   }
 
@@ -99,6 +100,17 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
   }
 
   public void messageAdded() {
-    populateMessageList();
+    messageListAdapter.readMessages();
+    messageListAdapter.notifyDataSetChanged();
+    setMainWindowComponentVisibility();
+  }
+
+  private boolean hasMessages() {
+    if(messageListAdapter == null) {
+      return false;
+    }
+    else {
+      return (messageListAdapter.getCount() > 0);
+    }
   }
 }
