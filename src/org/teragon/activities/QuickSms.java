@@ -23,7 +23,6 @@ import java.util.List;
 
 public class QuickSms extends Activity implements SmsController.Observer, AddNewMessageDialog.Observer {
   private static final int INTENT_REQUEST_PICK_CONTACT = 1;
-  private List<MessageListItem> messageListItems;
 
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +56,7 @@ public class QuickSms extends Activity implements SmsController.Observer, AddNew
     TableLayout messagesTable = (TableLayout)getWindow().findViewById(R.id.MessagesTable);
     messagesTable.removeAllViews();
 
-    messageListItems = new ArrayList<MessageListItem>();
+    List<MessageListItem> messageListItems = new ArrayList<MessageListItem>();
     MessagesController messagesController = new MessagesController(this);
     List<Message> allMessages = messagesController.getMessages();
     if(allMessages.size() > 0) {
