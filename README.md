@@ -8,3 +8,9 @@ message.
 To send a message, simply open the app and press one of the template buttons.
 The message will be sent automatically in the background. It's that simple!
 
+Licensing
+---------
+
+QuickSms is offered under the BSD License. See the "COPYING" file for more
+details.
+
